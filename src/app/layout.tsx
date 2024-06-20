@@ -1,6 +1,11 @@
+// src/app/layout.tsx
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import SideBar from "@/components/layout/sidebar/SideBar";
+import SubSidebar from "@/components/layout/SubSideBar";
+import { Avatar, Badge } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +21,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="flex h-screen">
+          <div className="flex flex-1 flex-col relative">
+            <header className="bg-gray-800 z-20 text-white p-4 sticky top-0 left-0 ">
+              <Badge count={1}>
+                <Avatar shape="square" icon={<UserOutlined />} />
+              </Badge>
+            </header>
+            <main className="flex-1 flex">
+              <div className="bg-blue-200 fixed top-0 left-0 bottom-0">
+                <SideBar />
+              </div>
+              <div className="flex-0 ml-20 fixed top-10 bottom-0">
+                <SubSidebar />
+              </div>
+              <div className="flex-1 ml-80">{children}</div>
+            </main>
+          </div>
+        </div>
+      </body>
     </html>
   );
 }
