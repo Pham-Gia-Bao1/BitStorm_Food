@@ -29,10 +29,10 @@ interface BoxCardProps {
   cards: Product[];
 }
 interface ProductCardProps {
-    params: Product;
-    getData: () => void;
+  params: Product;
+  getData: () => void;
 
-  }
+}
 
 type DataType = {
   name: string;

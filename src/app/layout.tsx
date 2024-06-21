@@ -4,8 +4,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import SideBar from "@/components/layout/sidebar/SideBar";
 import SubSidebar from "@/components/layout/SubSideBar";
-import { Avatar, Badge } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Badge } from "antd";
+import Avatar from '@mui/material/Avatar';
+import mainAvatar  from "../assets/images/image_4.png"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,10 +25,13 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="flex h-screen">
           <div className="flex flex-1 flex-col relative">
-            <header className="bg-gray-800 z-20 text-white p-4 sticky top-0 left-0 ">
-              <Badge count={1}>
-                <Avatar shape="square" icon={<UserOutlined />} />
-              </Badge>
+            <header className="bg-black z-50 text-white p-4 fixed top-0 left-0 right-0 h-19 flex items-end justify-end">
+              <Avatar
+                className="mr-10"
+                alt="Remy Sharp"
+                src="https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg"
+                sx={{ width: 24, height: 24 }}
+              />
             </header>
             <main className="flex-1 flex">
               <div className="bg-blue-200 fixed top-0 left-0 bottom-0">
@@ -36,6 +40,7 @@ export default function RootLayout({
               <div className="flex-0 ml-20 fixed top-10 bottom-0">
                 <SubSidebar />
               </div>
+              
               <div className="flex-1 ml-80">{children}</div>
             </main>
           </div>

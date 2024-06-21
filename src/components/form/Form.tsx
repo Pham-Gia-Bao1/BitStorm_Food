@@ -3,7 +3,7 @@ import { Modal, Form, Input, Upload, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
 interface ProductFormProps {
-    id: number;
+  id: number;
   open: boolean;
   onFinish: (values: any) => void;
   onFinishFailed: (errorInfo: any) => void;
@@ -12,6 +12,7 @@ interface ProductFormProps {
   imageUrl: string;
   fileList: any[];
   handleChange: (info: any) => void;
+  loading : boolean;
 }
 
 const ProductForm: React.FC<ProductFormProps> = ({
@@ -23,6 +24,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
   imageUrl,
   fileList,
   handleChange,
+  loading,
 }) => {
   return (
     <Modal
@@ -31,6 +33,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
       visible={open}
       onCancel={handleCancel}
     >
+
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -82,7 +85,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
 
         {/* New Form Item for Image Upload */}
         <Form.Item
-          label="Upload your certificate"
+          label="Upload picture"
           name="upload"
           rules={[{ required: true, message: "Please upload your file!" }]}
         >
@@ -102,7 +105,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
+          <Button loading={loading} type="primary" htmlType="submit">
             Create
           </Button>
         </Form.Item>
