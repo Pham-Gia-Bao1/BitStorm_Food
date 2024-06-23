@@ -1,5 +1,5 @@
-// src/components/SideBar.tsx
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import {
   Store,
   Home,
@@ -25,12 +25,21 @@ const links = [
 ];
 
 const SideBar: React.FC = () => {
+  const [selected, setSelected] = useState<string>("");
+
   return (
-    <div className="flex flex-col p-7  items-center bg-gray-900 text-white h-full py-4 space-y-10">
+    <div className="flex bg-primary_color flex-col p-4 items-center   text-white h-full py-4 space-y-8">
       {links.map((link, index) => (
-        <Tooltip className="hover:bg-gray-600" title={link.title} key={index}>
-          <Link className="hover:bg-gray-600" href={`/${link.title.toLowerCase()}`} passHref>
-            {link.icon}
+        <Tooltip title={link.title} key={index}>
+          <Link href={`/${link.title.toLowerCase()}`} passHref>
+            <div
+              className={`flex justify-center items-center w-full p-3 rounded cursor-pointer ${
+                selected === link.title ? "bg-red-500" : "hover:bg-gray-600"
+              }`}
+              onClick={() => setSelected(link.title)}
+            >
+              {link.icon}
+            </div>
           </Link>
         </Tooltip>
       ))}

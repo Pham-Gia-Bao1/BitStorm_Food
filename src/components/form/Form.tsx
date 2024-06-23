@@ -12,7 +12,7 @@ interface ProductFormProps {
   imageUrl: string;
   fileList: any[];
   handleChange: (info: any) => void;
-  loading : boolean;
+  loading: boolean;
 }
 
 const ProductForm: React.FC<ProductFormProps> = ({
@@ -32,9 +32,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
       title="Product Form"
       visible={open}
       onCancel={handleCancel}
-    >
-
+      >
       <Form
+        className="p-3"
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
@@ -88,17 +88,17 @@ const ProductForm: React.FC<ProductFormProps> = ({
           label="Upload picture"
           name="upload"
           rules={[{ required: true, message: "Please upload your file!" }]}
-        >
+          >
           <Upload
             listType="picture-card"
             fileList={fileList}
             onChange={handleChange}
             beforeUpload={() => false}
-          >
+            className="bg-gray-300"
+            >
             {fileList.length < 1 && (
               <div>
                 <PlusOutlined />
-                <div style={{ marginTop: 8 }}>Upload</div>
               </div>
             )}
           </Upload>
@@ -106,7 +106,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button loading={loading} type="primary" htmlType="submit">
-            Create
+            Submit
           </Button>
         </Form.Item>
       </Form>

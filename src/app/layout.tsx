@@ -7,6 +7,7 @@ import SubSidebar from "@/components/layout/SubSideBar";
 import { Badge } from "antd";
 import Avatar from '@mui/material/Avatar';
 import mainAvatar  from "../assets/images/image_4.png"
+import MainLogo from "@/components/logo/MainLogo";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +26,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="flex h-screen">
           <div className="flex flex-1 flex-col relative">
-            <header className="bg-black z-50 text-white p-4 fixed top-0 left-0 right-0 h-19 flex items-end justify-end">
+            <header className="bg-black z-50 text-white p-4 fixed top-0 left-0 right-0 h-19 flex justify-between">
+              <MainLogo />
               <Avatar
                 className="mr-10"
                 alt="Remy Sharp"
@@ -34,14 +36,14 @@ export default function RootLayout({
               />
             </header>
             <main className="flex-1 flex">
-              <div className="bg-blue-200 fixed top-0 left-0 bottom-0">
+              <div className="primary_color fixed top-0 left-0 bottom-0">
                 <SideBar />
               </div>
               <div className="flex-0 ml-20 fixed top-10 bottom-0">
                 <SubSidebar />
               </div>
-              
               <div className="flex-1 ml-80">{children}</div>
+             
             </main>
           </div>
         </div>
