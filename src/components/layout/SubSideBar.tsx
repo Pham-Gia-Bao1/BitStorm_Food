@@ -5,7 +5,7 @@ import { List, ListItem, ListItemText } from "@mui/material";
 
 const SubSidebar = () => {
   return (
-    <div className="w-64 h-full bg-gray-700 text-white rounded-lg">
+    <div className="w-64 h-full bg-gray-700 text-white rounded-lg sub_side">
       <List>
         <ListItem
           button

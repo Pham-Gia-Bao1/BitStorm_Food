@@ -1,5 +1,4 @@
 import React from 'react'
-
 export default function NotFound() {
   return (
     <main className="flex flex-col items-center justify-betwee bg-white h-full">
@@ -12,6 +11,5 @@ export default function NotFound() {
       </div>
     </div>
   </main>
-
   )
 }

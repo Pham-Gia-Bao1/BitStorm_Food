@@ -1,20 +1,6 @@
 import React from "react";
 import { Modal, Form, Input, Upload, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-
-interface ProductFormProps {
-  id: number;
-  open: boolean;
-  onFinish: (values: any) => void;
-  onFinishFailed: (errorInfo: any) => void;
-  handleCancel: () => void;
-  form: any; // Form instance type can be more specific if needed
-  imageUrl: string;
-  fileList: any[];
-  handleChange: (info: any) => void;
-  loading: boolean;
-}
-
 const ProductForm: React.FC<ProductFormProps> = ({
   open,
   onFinish,

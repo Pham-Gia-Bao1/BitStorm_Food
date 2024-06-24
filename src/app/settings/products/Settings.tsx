@@ -10,6 +10,45 @@ import { Fab, Skeleton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Loading from "@/components/loading/Loading";
 import SkeletonCard from "@/components/skeleton/Skeleton";
+import { SearchBar } from "@/components/search/SearchBar";
+import Image from "next/image";
+import ProductNotFoundImage from "../../../assets/images/NotFoundProductImage.webp"
+const buttons = [
+  { text: "Hot Dishes", className: "px-4 py-2 bg-red-500 rounded" },
+  {
+    text: "Cold Dishes",
+    className:
+      "px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded",
+  },
+  {
+    text: "Soup",
+    className:
+      "px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded",
+  },
+  {
+    text: "Grill",
+    className:
+      "px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded",
+  },
+  {
+    text: "Appetizer",
+    className:
+      "px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded",
+  },
+  {
+    text: "Dessert",
+    className:
+      "px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded",
+  },
+];
+const skeletons = [
+  { variant: "circular", animation: "wave", width: 60, height: 60 },
+  { variant: "rectangular", animation: "wave", width: 110, height: 60 },
+  { variant: "rectangular", animation: "wave", width: 110, height: 60 },
+  { variant: "rectangular", animation: "wave", width: 110, height: 60 },
+  { variant: "rectangular", animation: "wave", width: 110, height: 60 },
+  { variant: "rectangular", animation: "wave", width: 110, height: 60 },
+];
 
 const Settings: React.FC = () => {
   const [foods, setFoods] = useState<Product[]>([]);
@@ -19,6 +58,7 @@ const Settings: React.FC = () => {
   const [fileList, setFileList] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [currentId, setCurrentId] = useState<number | null>(null);
+  const [showNotFound, setShowNotFound] = useState<boolean>(false);
   const [data, setData] = useState<DataType>({
     name: "",
     price: 0,
@@ -29,19 +69,32 @@ const Settings: React.FC = () => {
 
   useEffect(() => {
     getData();
+    return;
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!loading && foods.length === 0) {
+        setShowNotFound(true);
+      }
+    }, 100);
+
+    return () => clearTimeout(timer); // Cleanup timer if component unmounts or if foods change
+  }, [loading, foods]);
+
   const getData = async () => {
+    setLoading(true);
     try {
       const fetchedFoods = await fetchFoodsData();
       setFoods(fetchedFoods);
     } catch (error) {
       console.error("Failed to fetch data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const showModal = async (id: number) => {
-    console.log(id + "id form");
     setIsModalOpen(true);
     setCurrentId(id);
     if (id !== 0) {
@@ -86,7 +139,6 @@ const Settings: React.FC = () => {
   };
 
   const createOrUpdateFood = async (data: DataType) => {
-    console.log(currentId + "id hiện tại");
     try {
       const formData = new FormData();
       formData.append("name", data.name);
@@ -94,7 +146,6 @@ const Settings: React.FC = () => {
       formData.append("description", data.description);
       formData.append("type", data.type);
       formData.append("picture", data.picture);
-
       if (currentId === 0) {
         await axios.post(API_URL + "/foods", formData, {
           headers: {
@@ -110,7 +161,6 @@ const Settings: React.FC = () => {
         });
         message.success("Food item updated successfully!");
       }
-
       getData();
       setLoading(false);
     } catch (error: any) {
@@ -166,125 +216,75 @@ const Settings: React.FC = () => {
         <h1 className="text-2xl mb-4">Settings</h1>
         <div className="flex">
           <div className="flex-1 ml-4 bg-gray-700 p-4 rounded-lg">
-            {foods.length === 0 ? (
+            {loading ? (
               <>
                 <Loading />
-                <Skeleton variant="text" sx={{ fontSize: "1.5rem" }} width="30%" />
+                <Skeleton
+                  variant="text"
+                  sx={{ fontSize: "1.5rem" }}
+                  width="30%"
+                />
               </>
             ) : (
-              <h2 className="text-xl mb-4">Products Management</h2>
+              <>
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-xl mb-4">Products Management</h2>
+                  <SearchBar setProducts={setFoods} />
+                </div>
+                <div className="flex justify-between mb-4">
+                  <div className="flex space-x-4">
+                    <Fab
+                      onClick={() => showModal(0)}
+                      color="primary"
+                      className="z-10"
+                      aria-label="add"
+                    >
+                      <AddIcon />
+                    </Fab>
+                    {buttons.map((button, index) => (
+                      <button key={index} className={button.className}>
+                        {button.text}
+                      </button>
+                    ))}
+                  </div>
+                  <button className="px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded">
+                    Manage Categories
+                  </button>
+                </div>
+              </>
             )}
 
-            <div className="flex justify-between mb-4">
-              {foods.length === 0 ? (
-                <div className="flex space-x-4">
-                  <Skeleton
-                    variant="circular"
-                    animation="wave"
-                    width={60}
-                    height={60}
-                  />
-                  <Skeleton
-                    variant="rectangular"
-                    animation="wave"
-                    width={110}
-                    height={60}
-                  />
-                  <Skeleton
-                    variant="rectangular"
-                    animation="wave"
-                    width={110}
-                    height={60}
-                  />
-                  <Skeleton
-                    variant="rectangular"
-                    animation="wave"
-                    width={110}
-                    height={60}
-                  />
-                  <Skeleton
-                    variant="rectangular"
-                    animation="wave"
-                    width={110}
-                    height={60}
-                  />
-                  <Skeleton
-                    variant="rectangular"
-                    animation="wave"
-                    width={110}
-                    height={60}
-                  />
-                </div>
-              ) : (
-                <div className="flex space-x-4">
-                  <Fab
-                    onClick={() => showModal(0)}
-                    color="primary"
-                    className="z-10"
-                    aria-label="add"
-                  >
-                    <AddIcon />
-                  </Fab>
-
-                  <button className="px-4 py-2 bg-red-500 rounded">
-                    Hot Dishes
-                  </button>
-                  <button className="px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded">
-                    Cold Dishes
-                  </button>
-                  <button className="px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded">
-                    Soup
-                  </button>
-                  <button className="px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded">
-                    Grill
-                  </button>
-                  <button className="px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded">
-                    Appetizer
-                  </button>
-                  <button className="px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded">
-                    Dessert
-                  </button>
-                </div>
-              )}
-
-              {foods.length === 0 ? (
-                <Skeleton
-                  variant="rectangular"
-                  animation="wave"
-                  width={110}
-                  height={60}
-                />
-              ) : (
-                <button className="px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded">
-                  Manage Categories
-                </button>
-              )}
-            </div>
             <div className="grid grid-cols-3 gap-4">
-              {foods.length === 0
-                ? [...Array(5)].map((_, index) => <SkeletonCard key={index} />)
-                : foods.map((food) => (
-                    <React.Fragment key={food.id}>
-                      <ProductForm
-                        id={food.id}
-                        open={isModalOpen}
-                        onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
-                        handleCancel={handleCancel}
-                        form={form}
-                        imageUrl={imageUrl}
-                        fileList={fileList}
-                        handleChange={handleChange}
-                        loading={loading}
-                      />
-                      <ProductCard
-                        openModal={() => showModal(food.id)}
-                        key={food.id}
-                        getData={getData}
-                        params={food}
-                      />
-                    </React.Fragment>
-                  ))}
+              {loading ? (
+                [...Array(5)].map((_, index) => <SkeletonCard key={index} />)
+              ) : foods.length === 0 ? (
+                showNotFound ? (
+                  <div className="col-span-3 flex items-center justify-center w-full text-center h-96">
+                    <h1>Product not found</h1>
+                  </div>
+                ) : null
+              ) : (
+                foods.map((food) => (
+                  <React.Fragment key={food.id}>
+                    <ProductForm
+                      id={food.id}
+                      open={isModalOpen}
+                      onFinish={onFinish}
+                      onFinishFailed={onFinishFailed}
+                      handleCancel={handleCancel}
+                      form={form}
+                      imageUrl={imageUrl}
+                      fileList={fileList}
+                      handleChange={handleChange}
+                      loading={loading}/>
+                    <ProductCard
+                      openModal={() => showModal(food.id)}
+                      key={food.id}
+                      getData={getData}
+                      params={food}/>
+                  </React.Fragment>
+                ))
+              )}
             </div>
           </div>
         </div>

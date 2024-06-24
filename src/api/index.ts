@@ -40,3 +40,17 @@ export const fetchFoodsData = async () => {
       return false;
     }
   };
+
+
+
+  export const search = async (searchTerm: string) => {
+    try {
+      const response = await axios.post(`${API_URL}/foods/search`, {
+        name: searchTerm
+      });
+      return response.data; // Return the data received from the API
+    } catch (error) {
+      console.error('Error searching foods:', error);
+      throw error; // Rethrow the error to be handled by the caller
+    }
+  };

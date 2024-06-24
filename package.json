@@ -15,11 +15,13 @@
     "@mui/icons-material": "^5.15.20",
     "@mui/material": "^5.15.20",
     "antd": "^5.18.3",
+    "aos": "^2.3.4",
     "axios": "^1.7.2",
     "material-icons": "^1.13.12",
     "next": "^14.2.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "styled-components": "^6.1.11"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -41,7 +41,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div className="bg-gray-800 p-5 rounded-lg overflow-hidden relative flex flex-col justify-between h-full">
       <Link href={`/settings/products/${params.id}`}>
-        <p className="p-2 mb-2 rounded bg-white w-10 flex items-center flex-col text-black">
+        <p className="p-1 mb-2 rounded bg-white w-10 flex items-center flex-col text-black">
           {params.id}
         </p>
         {params.picture ? (
