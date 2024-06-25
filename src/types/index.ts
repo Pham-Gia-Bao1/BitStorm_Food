@@ -12,6 +12,12 @@ interface Product {
   type: string;
   picture: string;
 }
+interface Post {
+  id : number;
+  title: string;
+  created_at : string;
+  updated_at : string;
+}
 
 type FieldType = {
   username?: string;
@@ -33,6 +39,32 @@ interface ProductCardProps {
   getData: () => void;
 
 }
+interface SearchBarProps {
+  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+}
+interface FormSoftProps {
+  open: boolean;
+  handleCancel: () => void;
+  onFinish: (values: any) => void;
+  loading: boolean;
+}
+interface ProductFormProps {
+  id: number;
+  open: boolean;
+  handleCancel: () => void;
+  onFinish: (values: any) => void;
+  onFinishFailed: (errorInfo: any) => void;
+  form: any; // Form instance type can be more specific if needed
+  imageUrl: string;
+  fileList: any[];
+  handleChange: (info: any) => void;
+  loading: boolean;
+}
+interface HomePageCardSecondLevelProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}
 type DataType = {
   name: string;
   price: number;
@@ -48,19 +80,4 @@ type SkeletonsType = {
 };
 type IntroduceCardType = {
   content: string
-}
-interface SearchBarProps {
-  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
-}
-interface ProductFormProps {
-  id: number;
-  open: boolean;
-  onFinish: (values: any) => void;
-  onFinishFailed: (errorInfo: any) => void;
-  handleCancel: () => void;
-  form: any; // Form instance type can be more specific if needed
-  imageUrl: string;
-  fileList: any[];
-  handleChange: (info: any) => void;
-  loading: boolean;
 }

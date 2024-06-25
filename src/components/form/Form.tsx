@@ -1,6 +1,8 @@
-import React from "react";
+"use client"
+import React, { useState, useEffect } from "react";
 import { Modal, Form, Input, Upload, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import { getAllType } from "@/api";
 const ProductForm: React.FC<ProductFormProps> = ({
   open,
   onFinish,
@@ -12,13 +14,15 @@ const ProductForm: React.FC<ProductFormProps> = ({
   handleChange,
   loading,
 }) => {
+
   return (
     <Modal
+      className="text-center"
       footer={null}
       title="Product Form"
       visible={open}
       onCancel={handleCancel}
-      >
+    >
       <Form
         className="p-3"
         name="basic"
@@ -37,7 +41,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
           name="name"
           rules={[{ required: true, message: "Please input product name!" }]}
         >
-          <Input />
+          <Input  />
         </Form.Item>
 
         <Form.Item
@@ -74,14 +78,14 @@ const ProductForm: React.FC<ProductFormProps> = ({
           label="Upload picture"
           name="upload"
           rules={[{ required: true, message: "Please upload your file!" }]}
-          >
+        >
           <Upload
             listType="picture-card"
             fileList={fileList}
             onChange={handleChange}
             beforeUpload={() => false}
             className="bg-gray-300"
-            >
+          >
             {fileList.length < 1 && (
               <div>
                 <PlusOutlined />

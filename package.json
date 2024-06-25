@@ -19,8 +19,11 @@
     "axios": "^1.7.2",
     "material-icons": "^1.13.12",
     "next": "^14.2.4",
+    "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-router-dom": "^6.24.0",
+    "react-slideshow-image": "^4.3.1",
     "styled-components": "^6.1.11"
   },
   "devDependencies": {

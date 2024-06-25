@@ -6,7 +6,7 @@ export default function HomePageIntroduce({content} : {
   return (
     <div className="flex items-center space-x-2">
       <div className="w-8 h-8 bg-orange-500 rounded-full"></div>
-      <p className="text-white">{content}</p>
+      <p>{content}</p>
     </div>
   );
 }

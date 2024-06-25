@@ -31,3 +31,15 @@ body {
     text-wrap: balance;
   }
 }
+
+/* globals.css */
+
+/* Default (light) theme styles */
+.light {
+  background-color: #ffffff !important;
+  color: #0b0a0a !important;
+}
+.dark {
+  background-color: #0b0a0a !important;
+  color: #ffffff !important;
+}

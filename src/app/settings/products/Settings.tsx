@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { fetchFoodsData } from "@/api";
+import { fetchFoodsData, filter, getAllType, getFoodsByType } from "@/api";
 import { Button, Form, FormProps, message } from "antd";
 import ProductForm from "@/components/form/Form";
 import ProductCard from "@/components/card/ProductCard";
@@ -11,36 +11,9 @@ import AddIcon from "@mui/icons-material/Add";
 import Loading from "@/components/loading/Loading";
 import SkeletonCard from "@/components/skeleton/Skeleton";
 import { SearchBar } from "@/components/search/SearchBar";
-import Image from "next/image";
-import ProductNotFoundImage from "../../../assets/images/NotFoundProductImage.webp"
-const buttons = [
-  { text: "Hot Dishes", className: "px-4 py-2 bg-red-500 rounded" },
-  {
-    text: "Cold Dishes",
-    className:
-      "px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded",
-  },
-  {
-    text: "Soup",
-    className:
-      "px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded",
-  },
-  {
-    text: "Grill",
-    className:
-      "px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded",
-  },
-  {
-    text: "Appetizer",
-    className:
-      "px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded",
-  },
-  {
-    text: "Dessert",
-    className:
-      "px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded",
-  },
-];
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import FormSoft from "@/components/form/FormSoft";
+import { useRouter } from "next/navigation";
 const skeletons = [
   { variant: "circular", animation: "wave", width: 60, height: 60 },
   { variant: "rectangular", animation: "wave", width: 110, height: 60 },
@@ -49,16 +22,20 @@ const skeletons = [
   { variant: "rectangular", animation: "wave", width: 110, height: 60 },
   { variant: "rectangular", animation: "wave", width: 110, height: 60 },
 ];
-
 const Settings: React.FC = () => {
+  const router = useRouter();
   const [foods, setFoods] = useState<Product[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
   const [imageUrl, setImageUrl] = useState<string>("");
   const [fileList, setFileList] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [loadingButton, setLoadingButton] = useState<boolean>(false);
   const [currentId, setCurrentId] = useState<number | null>(null);
   const [showNotFound, setShowNotFound] = useState<boolean>(false);
+  const [isFilter, setIsFilter] = useState<boolean>(false);
+  const [isSubmitFilter, setIsSubmitFilter] = useState<boolean>(false);
+  const [allType, setAllType] = useState<string[]>([]);
   const [data, setData] = useState<DataType>({
     name: "",
     price: 0,
@@ -69,6 +46,7 @@ const Settings: React.FC = () => {
 
   useEffect(() => {
     getData();
+    fetchTypes();
     return;
   }, []);
 
@@ -79,8 +57,18 @@ const Settings: React.FC = () => {
       }
     }, 100);
 
-    return () => clearTimeout(timer); // Cleanup timer if component unmounts or if foods change
+    return () => clearTimeout(timer);
   }, [loading, foods]);
+
+  const fetchTypes = async () => {
+    try {
+      const response = await getAllType();
+      console.log(response);
+      setAllType(response);
+    } catch (error) {
+      console.error("Failed to fetch types", error);
+    }
+  };
 
   const getData = async () => {
     setLoading(true);
@@ -91,6 +79,22 @@ const Settings: React.FC = () => {
       console.error("Failed to fetch data:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const showFilterForm = () => {
+    setIsFilter((pre) => !pre);
+  };
+
+  const onFinishFilter: FormProps["onFinish"] = async (values) => {
+    setIsSubmitFilter(true);
+    try {
+      const filteredData = await filter(parseInt(values.price));
+      setIsFilter(false);
+      setIsSubmitFilter(false);
+      setFoods(filteredData.data);
+    } catch (error) {
+      console.error("Error fetching filtered foods:", error);
     }
   };
 
@@ -116,7 +120,7 @@ const Settings: React.FC = () => {
   };
 
   const onFinish: FormProps["onFinish"] = async (values) => {
-    setLoading(true);
+    setLoadingButton(true);
     try {
       const uploadedImageUrl = await getUrlUpdateUserImg(
         fileList[0].originFileObj
@@ -129,13 +133,14 @@ const Settings: React.FC = () => {
         type: values.type,
         picture: uploadedImageUrl,
       };
+      setLoadingButton(false);
       createOrUpdateFood(newData);
       setData(newData);
-      setIsModalOpen(false);
     } catch (error) {
       message.error("Image upload failed. Please try again.");
       setLoading(false);
     }
+    setIsModalOpen(false);
   };
 
   const createOrUpdateFood = async (data: DataType) => {
@@ -209,6 +214,19 @@ const Settings: React.FC = () => {
       throw error;
     }
   };
+  const uniqueTypes = allType.filter(
+    (value, index, self) => self.indexOf(value) === index
+  );
+  const handleClick = async (type: string) => {
+    const updatedPath = `products?type=${type}`;
+    router.push(updatedPath);
+    try {
+      const results = await getFoodsByType(type);
+      setFoods(results);
+    } catch (error) {
+      throw error;
+    }
+  };
 
   return (
     <main className="flex flex-col items-center justify-betwee bg-white h-full">
@@ -241,20 +259,34 @@ const Settings: React.FC = () => {
                     >
                       <AddIcon />
                     </Fab>
-                    {buttons.map((button, index) => (
-                      <button key={index} className={button.className}>
-                        {button.text}
+                    {uniqueTypes.map((type, index) => (
+                      <button
+                        type="button" // Để ngăn form submit lại khi click
+                        key={index}
+                        className="px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded"
+                        onClick={() => handleClick(type)}
+                      >
+                        {type}
                       </button>
                     ))}
                   </div>
-                  <button className="px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded">
-                    Manage Categories
+                  <button
+                    onClick={showFilterForm}
+                    className="px-4 py-2  bg-gray-600 hover:bg-gray-800 rounded"
+                  >
+                    <FilterAltIcon />
                   </button>
                 </div>
               </>
             )}
 
             <div className="grid grid-cols-3 gap-4">
+              <FormSoft
+                loading={isSubmitFilter}
+                onFinish={onFinishFilter}
+                handleCancel={showFilterForm}
+                open={isFilter}
+              />
               {loading ? (
                 [...Array(5)].map((_, index) => <SkeletonCard key={index} />)
               ) : foods.length === 0 ? (
@@ -276,12 +308,14 @@ const Settings: React.FC = () => {
                       imageUrl={imageUrl}
                       fileList={fileList}
                       handleChange={handleChange}
-                      loading={loading}/>
+                      loading={loadingButton}
+                    />
                     <ProductCard
                       openModal={() => showModal(food.id)}
                       key={food.id}
                       getData={getData}
-                      params={food}/>
+                      params={food}
+                    />
                   </React.Fragment>
                 ))
               )}
