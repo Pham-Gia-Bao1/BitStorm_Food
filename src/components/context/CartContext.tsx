@@ -2,12 +2,7 @@
 import { message } from "antd";
 import React, { createContext, useContext, useState } from "react";
 
-interface CartItem {
-  id: string;
-  picture: string;
-  name: string;
-  price: number;
-}
+
 
 interface CartContextType {
   cart: CartItem[];
@@ -17,7 +12,7 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const CartProvider: React.FC = ({ children } : any) => {
+export const CartProvider: React.FC = ({ children } : any ) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
   const addToCart = (item: CartItem) => {

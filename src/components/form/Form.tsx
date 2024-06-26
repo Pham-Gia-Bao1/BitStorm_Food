@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
-import { Modal, Form, Input, Upload, Button } from "antd";
+import { Modal, Form, Input, Upload, Button, Select } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { getAllType } from "@/api";
 const ProductForm: React.FC<ProductFormProps> = ({
@@ -14,6 +14,24 @@ const ProductForm: React.FC<ProductFormProps> = ({
   handleChange,
   loading,
 }) => {
+  const [allType, setAllType] = useState<string[]>([]);
+
+  useEffect(() => {
+    fetchTypes();
+    return;
+  }, []);
+
+  const fetchTypes = async () => {
+    try {
+      const response = await getAllType();
+      const uniqueTypes = response.filter((value, index, self) => {
+        return self.indexOf(value) === index;
+      });
+      setAllType(uniqueTypes);
+    } catch (error) {
+      console.error("Failed to fetch types", error);
+    }
+  };
 
   return (
     <Modal
@@ -41,7 +59,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
           name="name"
           rules={[{ required: true, message: "Please input product name!" }]}
         >
-          <Input  />
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -70,10 +88,15 @@ const ProductForm: React.FC<ProductFormProps> = ({
           name="type"
           rules={[{ required: true, message: "Please select product type!" }]}
         >
-          <Input />
+          <Select placeholder="Select a type">
+            {allType.map((type) => (
+              <Select.Option key={type} value={type}>
+                {type}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
 
-        {/* New Form Item for Image Upload */}
         <Form.Item
           label="Upload picture"
           name="upload"

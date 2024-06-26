@@ -48,7 +48,7 @@ export default function OrderSide() {
   }, [cartVisible]);
 
   // Remove duplicate products by name
-  const uniqueCart = cart.reduce<OrderCardProps[]>((acc, current) => {
+  const uniqueCart = cart.reduce<CartItem[]>((acc, current) => {
     const x = acc.find(item => item.name === current.name);
     if (!x) {
       return acc.concat([current]);

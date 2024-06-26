@@ -74,6 +74,12 @@ interface HomePageCardSecondLevelProps {
   price: number | string;
   onRemove: (id: string | number | any) => void;
 }
+interface CartItem {
+  id: string | number;
+  name: string;
+  picture: string;
+  price: number | string;
+}
 
 type DataType = {
   name: string;
