@@ -65,6 +65,16 @@ interface HomePageCardSecondLevelProps {
   title: string;
   description: string;
 }
+
+// src/types/index.ts
+ interface OrderCardProps {
+  id: string | number;
+  name: string;
+  picture: string;
+  price: number | string;
+  onRemove: (id: string | number | any) => void;
+}
+
 type DataType = {
   name: string;
   price: number;

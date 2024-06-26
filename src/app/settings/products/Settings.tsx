@@ -138,6 +138,7 @@ const Settings: React.FC = () => {
       setLoadingButton(false);
       createOrUpdateFood(newData);
       setData(newData);
+      fetchTypes();
     } catch (error) {
       message.error("Image upload failed. Please try again.");
       setLoading(false);

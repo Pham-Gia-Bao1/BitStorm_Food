@@ -53,3 +53,15 @@ body {
 .custom-popconfirm {
   z-index: 1500 !important;
 }
+.h-max-height{
+    height: 38rem;
+}
+.cart-container {
+  right: -100%; /* Bắt đầu ẩn bên phải */
+  transition: right 0.3s ease; /* Hiệu ứng slide qua từ phải sang trái trong 0.3 giây */
+}
+
+.cart-container.visible {
+  right: 0; /* Khi hiển thị, slide vào từ bên phải */
+  transition: right 0.3s ease; /* Hiệu ứng slide qua từ phải sang trái trong 0.3 giây */
+}

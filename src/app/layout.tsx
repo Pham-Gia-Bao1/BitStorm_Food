@@ -11,6 +11,7 @@ import SubSidebar from "@/components/layout/SubSideBar";
 import Avatar from "@mui/material/Avatar";
 import MainLogo from "@/components/logo/MainLogo";
 import Header from "@/components/layout/Header";
+import { CartProvider } from "@/components/context/CartContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -62,31 +63,35 @@ export default function RootLayout({
   const { theme } = useTheme();
   return (
     <html lang="en" className={theme}>
-      <body className={`${inter.className} ${theme}`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className={`flex ${theme}`}>
-            <div className="flex flex-1 flex-col relative">
-              <Header />
-              <main className={`flex-1 flex  ${theme}`}>
-                <div className={`z-30 fixed top-0 left-0 bottom-0 ${theme}`}>
-                  <SideBar />
-                </div>
-                <div className={`flex-0 z-20 ml-20 fixed top-16 bottom-0 ${theme}`}>
-                  <SubSidebar />
-                </div>
-                <div className={`flex-1 ml-72 pl-3 w-96 ${theme}`}>
-                  {children}
-                </div>
-              </main>
+      <CartProvider>
+        <body className={`${inter.className} ${theme}`}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className={`flex ${theme}`}>
+              <div className="flex flex-1 flex-col relative">
+                <Header />
+                <main className={`flex-1 flex  ${theme}`}>
+                  <div className={`z-30 fixed top-0 left-0 bottom-0 ${theme}`}>
+                    <SideBar />
+                  </div>
+                  <div
+                    className={`flex-0 z-20 ml-20 fixed top-16 bottom-0 ${theme}`}
+                  >
+                    <SubSidebar />
+                  </div>
+                  <div className={`flex-1 ml-72 pl-3 w-96 ${theme}`}>
+                    {children}
+                  </div>
+                </main>
+              </div>
             </div>
-          </div>
-        </ThemeProvider>
-      </body>
+          </ThemeProvider>
+        </body>
+      </CartProvider>
     </html>
   );
 }

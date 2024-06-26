@@ -6,7 +6,8 @@ import { useState, useEffect } from "react";
 import { Button, Menu, Dropdown } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
 import { useTheme } from "next-themes";
-
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import OrderSide from "../order/OrderSide";
 const ModeToggle: React.FC = () => {
   const { theme, setTheme } = useTheme();
   const [currentTheme, setCurrentTheme] = useState<string>(theme || "dark");
@@ -30,10 +31,8 @@ const ModeToggle: React.FC = () => {
   );
 
   return (
-    <Dropdown overlay={menu} trigger={["click"]}>
-      <Button icon={<SettingOutlined />} size="large">
-        Theme: {currentTheme}
-      </Button>
+    <Dropdown className="mr-5" overlay={menu} trigger={["click"]}>
+      <Button icon={<SettingOutlined />} size="large"></Button>
     </Dropdown>
   );
 };
@@ -45,7 +44,8 @@ const Header: React.FC = () => {
       className={`box-shadow sm:w-50 z-50 text-white p-4 fixed top-0 left-0 right-0 h-19 flex justify-between items-center bg-black ${theme}`}
     >
       <MainLogo />
-      <div className="flex items-center">
+      <div className="flex items-center gap-5">
+        <OrderSide />
         <ModeToggle />
         <Avatar
           className="mr-4"
