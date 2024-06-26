@@ -4,8 +4,7 @@ import axios from "axios";
 import { API_URL } from "@/utils";
 import Image from "next/image";
 import Loading from "@/components/loading/Loading";
-import { Skeleton } from "@mui/material";
-import SkeletonDetail from "@/components/skeleton/SkeletonDetail";
+import { useTheme } from "next-themes";
 type Product = {
   id: number;
   name: string;
@@ -20,6 +19,7 @@ type Props = {
   };
 };
 const ProductDetail: React.FC<Props> = ({ params }) => {
+  const { theme } = useTheme();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true); // Added loading state
   const [error, setError] = useState<string | null>(null);
@@ -48,16 +48,16 @@ const ProductDetail: React.FC<Props> = ({ params }) => {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center mt-10 justify-between md:container md:mx-auto">
-      <div className="flex-1 ml-4 h-50 w-full p-4 rounded-lg shadow-lg">
+    <main className="flex min-h-screen flex-col bg-white items-center mt-10 justify-between md:container md:mx-auto">
+      <div className={`${theme} -1 ml-4 h-50 w-full p-4 rounded-lg`}>
         {loading && (
-          <div className="detail flex gap-4 w-full  h-full p-4 rounded-lg shadow-md">
+          <div className="detail flex gap-4 w-full  h-full p-4 rounded-lg">
             <Loading />
           </div>
         )}
         {error && <div>{error}</div>}
         {product && (
-          <div className="detail flex gap-4 w-full bg-gray-50 h-full p-4 rounded-lg shadow-md">
+          <div className={`${theme} mt-10 ml-10 shadow-md detail flex gap-4 w-full -50 h-full p-4 rounded-lg`}>
             <Image
               width={500}
               height={500}
@@ -66,16 +66,16 @@ const ProductDetail: React.FC<Props> = ({ params }) => {
               className="detail-image w-3/6 h-3/6 object-cover rounded-lg"
               />
             <div className="detail-content">
-              <h3 className="detail-title text-2xl text-gray-700 font-semibold mb-2">
+              <h3 className="detail-title text-2xl  font-semibold mb-2">
                 Name: {product.name}
               </h3>
-              <p className="detail-description text-gray-700 mb-2">
+              <p className="detail-description  mb-2">
                 Description: {product.description}
               </p>
-              <p className="detail-price text-lg text-gray-700 font-medium">
+              <p className="detail-price text-lg  font-medium">
                 Price: ${product.price}
               </p>
-              <p className="detail-type text-lg text-gray-600">
+              <p className="detail-type text-lg ">
                 Type: {product.type}
               </p>
             </div>

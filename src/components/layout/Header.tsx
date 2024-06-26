@@ -1,10 +1,11 @@
-'use client'
-import { useTheme } from "next-themes";
+"use client";
+import React from "react";
+import MainLogo from "../logo/MainLogo";
+import { Avatar } from "@mui/material";
+import { useState, useEffect } from "react";
 import { Button, Menu, Dropdown } from "antd";
 import { SettingOutlined } from "@ant-design/icons";
-import { useState, useEffect } from "react";
-import Avatar from "@mui/material/Avatar";
-import MainLogo from "@/components/logo/MainLogo";
+import { useTheme } from "next-themes";
 
 const ModeToggle: React.FC = () => {
   const { theme, setTheme } = useTheme();
@@ -39,16 +40,15 @@ const ModeToggle: React.FC = () => {
 
 const Header: React.FC = () => {
   const { theme } = useTheme();
-
   return (
     <header
-      className={`${theme} sm:w-50 p-4 fixed top-0 left-0 right-0 h-19 flex justify-between header_main_layout`}
+      className={`box-shadow sm:w-50 z-50 text-white p-4 fixed top-0 left-0 right-0 h-19 flex justify-between items-center bg-black ${theme}`}
     >
       <MainLogo />
       <div className="flex items-center">
         <ModeToggle />
         <Avatar
-          className="mr-10"
+          className="mr-4"
           alt="User Avatar"
           src="https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg"
           sx={{ width: 24, height: 24 }}

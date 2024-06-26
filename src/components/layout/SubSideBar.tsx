@@ -2,14 +2,16 @@
 import React from "react";
 import Link from "next/link";
 import { List, ListItem, ListItemText } from "@mui/material";
+import { useTheme } from "next-themes";
 
 const SubSidebar = () => {
+  const { theme } = useTheme();
   return (
-    <div className="w-64 h-full bg-gray-700 text-white rounded-lg sub_side">
+    <div className={`${theme}  w-64 h-full pt-10 z-20 rounded-lg sub_side box-shadow`}>
       <List>
         <ListItem
           button
-          className="active:bg-gray-600 p-2 rounded p-4"
+           className="hover:bg-gray-600 p-2 rounded p-4"
           component={Link}
           href="/settings/appearance"
         >

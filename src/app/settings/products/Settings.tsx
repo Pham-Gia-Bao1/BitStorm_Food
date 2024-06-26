@@ -14,6 +14,7 @@ import { SearchBar } from "@/components/search/SearchBar";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FormSoft from "@/components/form/FormSoft";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
 const skeletons = [
   { variant: "circular", animation: "wave", width: 60, height: 60 },
   { variant: "rectangular", animation: "wave", width: 110, height: 60 },
@@ -24,6 +25,7 @@ const skeletons = [
 ];
 const Settings: React.FC = () => {
   const router = useRouter();
+  const { theme } = useTheme();
   const [foods, setFoods] = useState<Product[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [form] = Form.useForm();
@@ -229,11 +231,11 @@ const Settings: React.FC = () => {
   };
 
   return (
-    <main className="flex flex-col items-center justify-betwee bg-white h-full">
-      <div className="flex-1 p-6 bg-gray-800 text-white w-full h-full">
+    <main className={`${theme} flex flex-col items-center justify-betwee h-full`}>
+      <div className="flex-1 p-6  w-full h-full">
         <h1 className="text-2xl mb-4">Settings</h1>
         <div className="flex">
-          <div className="flex-1 ml-4 bg-gray-700 p-4 rounded-lg">
+          <div className={`flex-1 ml-4  p-4 rounded-lg ${theme}`}>
             {loading ? (
               <>
                 <Loading />
@@ -263,7 +265,7 @@ const Settings: React.FC = () => {
                       <button
                         type="button" // Để ngăn form submit lại khi click
                         key={index}
-                        className="px-4 py-2 active:bg-red-500 bg-gray-600 hover:bg-gray-800 rounded"
+                        className={`${theme} box-shadow px-4 py-2 active:bg-red-500 hover:bg-gray-800 rounded`}
                         onClick={() => handleClick(type)}
                       >
                         {type}
@@ -272,7 +274,7 @@ const Settings: React.FC = () => {
                   </div>
                   <button
                     onClick={showFilterForm}
-                    className="px-4 py-2  bg-gray-600 hover:bg-gray-800 rounded"
+                    className={`${theme} box-shadow px-4 py-2 rounded`}
                   >
                     <FilterAltIcon />
                   </button>

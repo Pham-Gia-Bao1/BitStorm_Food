@@ -1,9 +1,12 @@
 import { Skeleton } from '@mui/material'
+import { useTheme } from 'next-themes';
 import React from 'react'
 
 export default function SkeletonCard() {
+  const { theme } = useTheme();
+
   return (
-    <div className="flex flex-col  bg-gray-800 p-5 rounded-lg overflow-hidden gap-1.5">
+    <div className={`${theme} flex flex-col p-5 rounded-lg overflow-hidden gap-1.5`}>
     <Skeleton
       animation="wave"
       variant="rectangular"

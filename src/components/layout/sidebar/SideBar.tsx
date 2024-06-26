@@ -12,6 +12,7 @@ import {
 } from "@mui/icons-material";
 import { Tooltip, IconButton } from "@mui/material";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 
 const links = [
   { title: "Store", icon: <Store /> },
@@ -25,15 +26,15 @@ const links = [
 ];
 
 const SideBar: React.FC = () => {
+  const { theme } = useTheme();
   const [selected, setSelected] = useState<string>("");
-
   return (
-    <div className="flex bg-primary_color flex-col p-4 items-center   text-white h-full py-4 space-y-8">
+    <div className={`${theme} flex box-shadow bg-primary_color flex-col p-4 items-center h-full py-4 space-y-8`}>
       {links.map((link, index) => (
         <Tooltip title={link.title} key={index}>
           <Link href={`/${link.title.toLowerCase()}`} passHref>
             <div
-              className={`flex justify-center items-center w-full p-3 rounded cursor-pointer ${
+              className={`${theme} flex justify-center items-center w-full p-3 rounded cursor-pointer ${
                 selected === link.title ? "bg-red-500" : "hover:bg-gray-600"
               }`}
               onClick={() => setSelected(link.title)}

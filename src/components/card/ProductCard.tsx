@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -6,14 +6,20 @@ import {
   Button,
   Typography,
   IconButton,
+  Menu,
+  MenuItem,
 } from "@mui/material";
-import { Edit as EditIcon } from "@mui/icons-material";
+import {
+  Edit as EditIcon,
+  MoreVert as MoreVertIcon,
+} from "@mui/icons-material";
 import Image from "next/image";
 import { Popconfirm, PopconfirmProps, message } from "antd";
 import { deleteFood } from "@/api";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 
 interface ProductCardProps {
   params: Product;
@@ -26,6 +32,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
   getData,
   openModal,
 }) => {
+  const { theme } = useTheme();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const confirm: PopconfirmProps["onConfirm"] = async (e) => {
     console.log(e);
     await deleteFood(params.id);
@@ -39,7 +57,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <div className="bg-gray-800 p-5 rounded-lg overflow-hidden relative flex flex-col justify-between h-full">
+    <div
+      className={`${theme} ${theme === 'dark' ? 'bg-blue-500' : ''} box-shadow-1 p-5 rounded-lg overflow-hidden relative flex flex-col justify-between h-full`}
+    >
       <Link href={`/settings/products/${params.id}`}>
         <p className="p-1 mb-2 rounded bg-white w-10 flex items-center flex-col text-black">
           {params.id}
@@ -72,25 +92,40 @@ const ProductCard: React.FC<ProductCardProps> = ({
           ${params.price} • 30 Bowls
         </p>
       </Link>
-      <div className="flex gap-2 mt-4 float-end">
-        <button
-          onClick={() => openModal(params.id)}
-          className="px-4 py-2 bg-blue-500 rounded"
-        >
-          <BorderColorIcon />
-        </button>
-        <Popconfirm
-          title="Delete the task"
-          description="Are you sure to delete this task?"
-          onConfirm={confirm}
-          onCancel={cancel}
-          okText="Yes"
-          cancelText="No"
-        >
-          <button className="px-4 py-2 bg-red-500 rounded">
-            <DeleteIcon />
-          </button>
-        </Popconfirm>
+      <div className="absolute top-2 right-2">
+        <IconButton className="bg-white" aria-label="more options" onClick={handleClick}>
+          <MoreVertIcon />
+        </IconButton>
+        <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+          <MenuItem
+            onClick={() => {
+              openModal(params.id);
+              handleClose();
+            }}
+            className="text-blue-600"
+          >
+            <BorderColorIcon />
+          </MenuItem>
+          <MenuItem>
+            <Popconfirm
+              title="Delete the task"
+              description="Are you sure to delete this task?"
+              onConfirm={(e) => {
+                confirm(e);
+                handleClose();
+              }}
+              onCancel={cancel}
+              okText="Yes"
+              cancelText="No"
+              placement="topRight"
+              overlayClassName="custom-popconfirm"
+            >
+              <span className="flex items-center text-red-600">
+                <DeleteIcon />
+              </span>
+            </Popconfirm>
+          </MenuItem>
+        </Menu>
       </div>
     </div>
   );
