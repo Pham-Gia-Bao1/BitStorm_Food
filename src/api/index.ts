@@ -107,3 +107,4 @@ export const getFoodsByType = async (type: string) => {
     throw error;
   }
 }
+

@@ -1,18 +1,9 @@
 // src/context/CartContext.tsx
+"use client"
 import { message } from "antd";
 import React, { createContext, useContext, useState } from "react";
-
-
-
-interface CartContextType {
-  cart: CartItem[];
-  addToCart: (item: CartItem) => void;
-  removeFromCart: (id: string) => void;
-}
-
 const CartContext = createContext<CartContextType | undefined>(undefined);
-
-export const CartProvider: React.FC = ({ children } : any ) => {
+export const CartProvider = ({ children } : any ) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
   const addToCart = (item: CartItem) => {

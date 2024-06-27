@@ -109,8 +109,8 @@ export default function Home() {
   const { theme } = useTheme();
   return (
     <main className="flex min-h-screen flex-col items-center mt-10 justify-between md:container md:mx-auto w-full">
-      <div className="flex-1 p-6 bg-gray-800  w-full">
-        <div className={`${theme } flex items-center justify-center py-16 bg-gray-900 p-4`}>
+      <div className="flex-1 p-6 w-full">
+        <div className={`${theme } flex items-center justify-center py-16 p-4`}>
           <div
             data-aos="fade-right"
             className="text-center w-96 flex flex-col items-center justify-center"

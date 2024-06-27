@@ -18,7 +18,11 @@ interface Post {
   created_at : string;
   updated_at : string;
 }
-
+interface CartContextType {
+  cart: CartItem[];
+  addToCart: (item: CartItem) => void;
+  removeFromCart: (id: string) => void;
+}
 type FieldType = {
   username?: string;
   password?: string;
@@ -96,4 +100,9 @@ type SkeletonsType = {
 };
 type IntroduceCardType = {
   content: string
+}
+
+interface RectProps {
+  imageSrc: string;
+  title: string;
 }

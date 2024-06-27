@@ -26,7 +26,6 @@ const ProductDetail: React.FC<PropductProps> = ({ params }) => {
 
   async function getData(productId: number): Promise<void> {
     const apiUrl = `${API_URL}/foods/${productId}`;
-
     try {
       const response = await axios.get<Product>(apiUrl);
       setProduct(response.data);
@@ -41,7 +40,6 @@ const ProductDetail: React.FC<PropductProps> = ({ params }) => {
   const handleAddToCart = () => {
     if (product) {
       addToCart(product);
-      console.log("Added to cart:", product);
     }
   };
 
@@ -51,7 +49,7 @@ const ProductDetail: React.FC<PropductProps> = ({ params }) => {
 
   return (
     <main className="flex min-h-screen flex-col bg-white items-center mt-10 justify-between md:container md:mx-auto">
-      <div className={`${theme} -1 ml-4 h-50 w-full p-4 rounded-lg`}>
+      <div className={`${theme} ml-4 h-50 w-full p-4 rounded-lg`}>
         {loading && (
           <div className="detail flex gap-4 w-full h-full p-4 rounded-lg">
             <Loading />

@@ -40,8 +40,6 @@ const ModeToggle: React.FC<{ count: number }> = ({ count }) => {
 
 const Header: React.FC = () => {
   const { cart } = useCart();
-
-  // Calculate unique items in cart
   const uniqueCart = cart.reduce<CartItem[]>((acc, current) => {
     const x = acc.find((item) => item.name === current.name);
     if (!x) {

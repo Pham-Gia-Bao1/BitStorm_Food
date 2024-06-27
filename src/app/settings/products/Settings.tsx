@@ -15,6 +15,23 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FormSoft from "@/components/form/FormSoft";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
+import ShopImage1 from "../../../assets/images/Group 16.png";
+import ShopImage2 from "../../../assets/images/Group 17.png";
+import ShopImage3 from "../../../assets/images/Group 18.png";
+import ShopImage4 from "../../../assets/images/Group 19.png";
+import ShopImage5 from "../../../assets/images/Group 20.png";
+import ShopImage6 from "../../../assets/images/Group 21.png";
+import Image from "next/image";
+
+const shops = [
+  ShopImage1,
+  ShopImage2,
+  ShopImage3,
+  ShopImage4,
+  ShopImage5,
+  ShopImage6,
+];
+
 const skeletons = [
   { variant: "circular", animation: "wave", width: 60, height: 60 },
   { variant: "rectangular", animation: "wave", width: 110, height: 60 },
@@ -65,7 +82,6 @@ const Settings: React.FC = () => {
   const fetchTypes = async () => {
     try {
       const response = await getAllType();
-      console.log(response);
       setAllType(response);
     } catch (error) {
       console.error("Failed to fetch types", error);
@@ -232,7 +248,9 @@ const Settings: React.FC = () => {
   };
 
   return (
-    <main className={`${theme} flex flex-col items-center justify-betwee h-full`}>
+    <main
+      className={`${theme} flex flex-col items-center justify-betwee h-full min-h-screen`}
+    >
       <div className="flex-1 p-6  w-full h-full">
         <h1 className="text-2xl mb-4">Settings</h1>
         <div className="flex">
@@ -282,7 +300,18 @@ const Settings: React.FC = () => {
                 </div>
               </>
             )}
-
+            <div className="flex items-center gap-2 m-5">
+              {shops.map((value, index) => (
+                <Image
+                  key={index}
+                  width={50}
+                  height={50}
+                  src={value}
+                  className=""
+                  alt="shop image"
+                />
+              ))}
+            </div>
             <div className="grid grid-cols-3 gap-4">
               <FormSoft
                 loading={isSubmitFilter}

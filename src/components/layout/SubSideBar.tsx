@@ -7,11 +7,11 @@ import { useTheme } from "next-themes";
 const SubSidebar = () => {
   const { theme } = useTheme();
   return (
-    <div className={`${theme}  w-64 h-full pt-10 z-20 rounded-lg sub_side box-shadow`}>
+    <div className={`${theme} w-64 h-full pt-10 z-20 rounded-lg sub_side box-shadow`}>
       <List>
         <ListItem
           button
-           className="hover:bg-gray-600 p-2 rounded p-4"
+           className="hover:bg-gray-600  rounded p-4"
           component={Link}
           href="/settings/appearance"
         >
@@ -19,7 +19,7 @@ const SubSidebar = () => {
         </ListItem>
         <ListItem
           button
-          className="hover:bg-gray-600 p-2 rounded p-4"
+          className="hover:bg-gray-600  rounded p-4"
           component={Link}
           href="/settings/restaurant"
         >
@@ -27,7 +27,7 @@ const SubSidebar = () => {
         </ListItem>
         <ListItem
           button
-          className="hover:bg-gray-600 p-2 rounded p-4"
+          className="hover:bg-gray-600  rounded p-4"
           component={Link}
           href="/settings/products"
         >
@@ -35,7 +35,7 @@ const SubSidebar = () => {
         </ListItem>
         <ListItem
           button
-          className="hover:bg-gray-600 p-2 rounded p-4"
+          className="hover:bg-gray-600  rounded p-4"
           component={Link}
           href="/settings/notifications"
         >
@@ -43,7 +43,7 @@ const SubSidebar = () => {
         </ListItem>
         <ListItem
           button
-          className="hover:bg-gray-600 p-2 rounded p-4"
+          className="hover:bg-gray-600  rounded p-4"
           component={Link}
           href="/settings/security"
         >
@@ -51,7 +51,7 @@ const SubSidebar = () => {
         </ListItem>
         <ListItem
           button
-          className="hover:bg-gray-600 p-2 rounded p-4"
+          className="hover:bg-gray-600  rounded p-4"
           component={Link}
           href="/settings/about"
         >
