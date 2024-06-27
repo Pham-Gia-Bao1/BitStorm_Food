@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import BannerTopImage from "../../../../assets/images/BannerTop.png";
 import ShopImage1 from "../../../../assets/images/Group 16.png";
@@ -11,6 +11,9 @@ import Image from "next/image";
 import ProductCardCheckOut from "@/components/card/ProductCardCheckOut";
 import { useCart } from "@/components/context/CartContext";
 import { useTheme } from "next-themes";
+import Link from "next/link";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Footer from "@/components/layout/Footer";
 
 const shops = [
   ShopImage1,
@@ -33,7 +36,9 @@ export default function Page() {
     }
   }, []);
   return (
-    <main className={`${theme} flex flex-col items-center justify-between h-full min-h-screen`}>
+    <main
+      className={`${theme} flex flex-col items-center justify-between h-full min-h-screen`}
+    >
       <div className="flex-1 p-6 w-full h-full">
         <h1 className="text-2xl mb-4">Settings</h1>
         <div className="flex">
@@ -48,7 +53,6 @@ export default function Page() {
                   alt="Top banner"
                 />
               </div>
-
               <div className="mt-2">
                 {uniqueCart.length === 0 ? (
                   <p>Order list are empty.</p>
@@ -62,6 +66,18 @@ export default function Page() {
                   ))
                 )}
               </div>
+              <Link
+                href="/settings/products/checkout"
+                passHref
+                className="w-full"
+              >
+                <button className="rounded bg-green-600 h-full w-full flex items-center justify-center gap-5 p-4 hover:bg-green-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                  <span className="flex justify-center items-center bg-white rounded-full p-2 shadow-inner">
+                    <ArrowForwardIcon className="text-green-600" />
+                  </span>
+                  <p className="text-2xl text-white font-semibold">Pay</p>
+                </button>
+              </Link>
               <div className="flex items-center gap-2 m-5 ml-0 justify-evenly">
                 {shops.map((value, index) => (
                   <Image
@@ -72,6 +88,9 @@ export default function Page() {
                     alt="shop image"
                   />
                 ))}
+              </div>
+              <div>
+                <Footer />
               </div>
             </div>
           </div>

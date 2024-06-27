@@ -6,7 +6,7 @@ import HomePageCardSecondLevel from "@/components/card/HomePageCardSecondLevel";
 import Slideshow from "@/components/slideshow/Slideshow";
 import Footer from "@/components/layout/Footer";
 import { useTheme } from "next-themes";
-
+import BannerTopImage from "../assets/images/Ordering APP.png";
 const IntroduceCard = [
   {
     content: "Lorem ipsum dolor sit amet, consectetur",
@@ -110,14 +110,12 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center mt-10 justify-between md:container md:mx-auto w-full">
       <div className="flex-1 p-6 w-full">
-        <div className={`${theme } flex items-center justify-center py-16 p-4`}>
+        <div className={`${theme} flex items-center justify-center py-16 p-4 w-full`}>
           <div
             data-aos="fade-right"
             className="text-center w-96 flex flex-col items-center justify-center"
           >
-            <h2 className="text-3xl font-bold mb-4">
-              Our Expects Chef
-            </h2>
+            <h2 className="text-3xl font-bold mb-4">Our Expects Chef</h2>
             <p className=" mb-8 w-4/6">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -128,9 +126,7 @@ export default function Home() {
               ))}
             </div>
             <div className="flex space-x-4 items-center justify-center">
-              <button className={`${theme} px-6 py-2 rounded`}>
-                Menu
-              </button>
+              <button className={`${theme} px-6 py-2 rounded`}>Menu</button>
               <button className="bg-orange-500 px-6 py-2 rounded">
                 Book a table
               </button>
@@ -166,6 +162,7 @@ export default function Home() {
             ))}
           </div>
         </div>
+
         <div>
           <Footer />
         </div>

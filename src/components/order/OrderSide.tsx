@@ -9,7 +9,7 @@ import ShoppingBasketImage from "../../assets/images/Full Shopping Basket.png";
 import Image from "next/image";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Link from "next/link";
-
+import { formatNumber } from "@/utils";
 
 export default function OrderSide() {
   const [cartVisible, setCartVisible] = useState(false);
@@ -17,6 +17,17 @@ export default function OrderSide() {
   const cartRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { cart, removeFromCart } = useCart(); // Access cart state and remove method from context
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+
+  // Remove duplicate products by name
+  const uniqueCart = cart.reduce<CartItem[]>((acc, current) => {
+    const x = acc.find((item) => item.name === current.name);
+    if (!x) {
+      return acc.concat([current]);
+    } else {
+      return acc;
+    }
+  }, []);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (buttonRef.current && buttonRef.current.contains(event.target as Node)) {
@@ -36,6 +47,14 @@ export default function OrderSide() {
   };
 
   useEffect(() => {
+    const newTotalPrice = uniqueCart.reduce(
+      (sum, item) => sum + Number(item.price),
+      0
+    );
+    setTotalPrice(newTotalPrice);
+  }, [uniqueCart]);
+
+  useEffect(() => {
     if (cartVisible) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
@@ -46,16 +65,6 @@ export default function OrderSide() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [cartVisible]);
-
-  // Remove duplicate products by name
-  const uniqueCart = cart.reduce<CartItem[]>((acc, current) => {
-    const x = acc.find((item) => item.name === current.name);
-    if (!x) {
-      return acc.concat([current]);
-    } else {
-      return acc;
-    }
-  }, []);
 
   return (
     <div>
@@ -69,7 +78,7 @@ export default function OrderSide() {
         ref={cartRef}
         className={`${theme} cart-container ${
           cartVisible ? "visible" : ""
-        } box-shadow fixed top-16 right-0 bottom-0 h-86 w-96 mt-2 overflow-y-auto flex flex-col`}
+        } box-shadow-2 fixed top-16 right-0 bottom-0 h-86 w-96 mt-2 overflow-y-auto flex flex-col`}
         style={{ maxHeight: "calc(100vh - 4rem)", overflowY: "auto" }}
       >
         <div className="h-24 bg-green-600 w-full flex items-center justify-center flex-wrap">
@@ -105,29 +114,30 @@ export default function OrderSide() {
         <div className="absolute bottom-0 bg-slate-100 w-full flex items-center justify-center gap-1 flex-col h-40">
           <section className="w-full flex items-center justify-around gap-3 h-12">
             <p className="font-bold border-r-2 h-full flex items-center justify-center w-1/2">
-              Total:
+              Delivery Fee:
             </p>
             <p className="font-bold w-1/2 flex items-center justify-center">
-              £127.90
+              10.000 vnd
             </p>
           </section>
           <section className="w-full flex items-center justify-around gap-3 h-12">
             <p className="font-bold border-r-2 h-full flex items-center justify-center w-1/2">
-              Delivery Fee:
+              Total:
             </p>
             <p className="font-bold w-1/2 flex items-center justify-center">
-              2.50
+              {totalPrice !== 0
+                ? formatNumber(totalPrice - 10)
+                : formatNumber(totalPrice)}
+              .000 vnd
             </p>
           </section>
-          <Link href="/settings/products/checkout" passHref>
-
-              <button className="rounded bg-green-600 h-full w-full flex items-center justify-center gap-5">
-                <span className="flex justify-center items-center bg-white rounded-lg ml-10">
-                  <ArrowForwardIcon />
-                </span>
-                <p className="w-full bg-green-600 text-2xl">Checkout</p>
-              </button>
-
+          <Link href="/settings/products/checkout" passHref className="w-full">
+            <button className="rounded bg-green-600 h-full w-full flex items-center justify-center gap-5 p-4 hover:bg-green-700 transition-all duration-300 shadow-md hover:shadow-lg">
+              <span className="flex justify-center items-center bg-white rounded-full p-2 shadow-inner">
+                <ArrowForwardIcon className="text-green-600" />
+              </span>
+              <p className="text-2xl text-white font-semibold">Checkout</p>
+            </button>
           </Link>
         </div>
       </div>

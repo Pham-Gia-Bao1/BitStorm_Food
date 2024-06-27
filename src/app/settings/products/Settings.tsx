@@ -300,18 +300,6 @@ const Settings: React.FC = () => {
                 </div>
               </>
             )}
-            <div className="flex items-center gap-2 m-5">
-              {shops.map((value, index) => (
-                <Image
-                  key={index}
-                  width={50}
-                  height={50}
-                  src={value}
-                  className=""
-                  alt="shop image"
-                />
-              ))}
-            </div>
             <div className="grid grid-cols-3 gap-4">
               <FormSoft
                 loading={isSubmitFilter}
@@ -320,7 +308,7 @@ const Settings: React.FC = () => {
                 open={isFilter}
               />
               {loading ? (
-                [...Array(5)].map((_, index) => <SkeletonCard key={index} />)
+                [...Array(6)].map((_, index) => <SkeletonCard key={index} />)
               ) : foods.length === 0 ? (
                 showNotFound ? (
                   <div className="col-span-3 flex items-center justify-center w-full text-center h-96">
