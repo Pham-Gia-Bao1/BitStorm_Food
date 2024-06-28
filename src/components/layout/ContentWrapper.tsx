@@ -6,7 +6,6 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 const ContentWrapper = ({ children }: { children: React.ReactNode }) => {
     const { theme } = useTheme();
-
     return (
       <html lang="en" className={theme}>
         <body className={`${inter.className} ${theme}`}>

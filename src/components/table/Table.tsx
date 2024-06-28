@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Form, Table } from "antd";
 import { getAllPost } from "@/api";
-
 interface Post {
   id: number;
   title: string;
 }
-
 const TablePost: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [form] = Form.useForm();
-
   useEffect(() => {
     getPosts();
   }, []);
-
   const getPosts = async () => {
     setLoading(true);
     try {
@@ -33,7 +29,6 @@ const TablePost: React.FC = () => {
       setLoading(false);
     }
   };
-
   const columns = [
     {
       title: "ID",
@@ -48,7 +43,6 @@ const TablePost: React.FC = () => {
       editable: true,
     },
   ];
-
   const mergedColumns = columns.map((col) => ({
     ...col,
     onCell: (record: Post) => ({
@@ -58,7 +52,6 @@ const TablePost: React.FC = () => {
       title: col.title,
     }),
   }));
-
   return (
     <Form form={form} component={false}>
       <Table
@@ -72,5 +65,4 @@ const TablePost: React.FC = () => {
     </Form>
   );
 };
-
 export default TablePost;

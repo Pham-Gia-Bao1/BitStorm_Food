@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { fetchFoodsData, filter, getAllType, getFoodsByType } from "@/api";
-import { Button, Form, FormProps, message } from "antd";
+import { Form, FormProps, message } from "antd";
 import ProductForm from "@/components/form/Form";
 import ProductCard from "@/components/card/ProductCard";
 import axios from "axios";
@@ -15,31 +15,6 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FormSoft from "@/components/form/FormSoft";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-import ShopImage1 from "../../../assets/images/Group 16.png";
-import ShopImage2 from "../../../assets/images/Group 17.png";
-import ShopImage3 from "../../../assets/images/Group 18.png";
-import ShopImage4 from "../../../assets/images/Group 19.png";
-import ShopImage5 from "../../../assets/images/Group 20.png";
-import ShopImage6 from "../../../assets/images/Group 21.png";
-import Image from "next/image";
-
-const shops = [
-  ShopImage1,
-  ShopImage2,
-  ShopImage3,
-  ShopImage4,
-  ShopImage5,
-  ShopImage6,
-];
-
-const skeletons = [
-  { variant: "circular", animation: "wave", width: 60, height: 60 },
-  { variant: "rectangular", animation: "wave", width: 110, height: 60 },
-  { variant: "rectangular", animation: "wave", width: 110, height: 60 },
-  { variant: "rectangular", animation: "wave", width: 110, height: 60 },
-  { variant: "rectangular", animation: "wave", width: 110, height: 60 },
-  { variant: "rectangular", animation: "wave", width: 110, height: 60 },
-];
 const Settings: React.FC = () => {
   const router = useRouter();
   const { theme } = useTheme();
@@ -62,23 +37,19 @@ const Settings: React.FC = () => {
     type: "",
     picture: "",
   });
-
   useEffect(() => {
     getData();
     fetchTypes();
     return;
   }, []);
-
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!loading && foods.length === 0) {
         setShowNotFound(true);
       }
     }, 100);
-
     return () => clearTimeout(timer);
   }, [loading, foods]);
-
   const fetchTypes = async () => {
     try {
       const response = await getAllType();
@@ -87,7 +58,6 @@ const Settings: React.FC = () => {
       console.error("Failed to fetch types", error);
     }
   };
-
   const getData = async () => {
     setLoading(true);
     try {
@@ -99,11 +69,9 @@ const Settings: React.FC = () => {
       setLoading(false);
     }
   };
-
   const showFilterForm = () => {
     setIsFilter((pre) => !pre);
   };
-
   const onFinishFilter: FormProps["onFinish"] = async (values) => {
     setIsSubmitFilter(true);
     try {
@@ -115,7 +83,6 @@ const Settings: React.FC = () => {
       console.error("Error fetching filtered foods:", error);
     }
   };
-
   const showModal = async (id: number) => {
     setIsModalOpen(true);
     setCurrentId(id);
@@ -131,12 +98,10 @@ const Settings: React.FC = () => {
       }
     }
   };
-
   const handleCancel = () => {
     setIsModalOpen(false);
     form.resetFields();
   };
-
   const onFinish: FormProps["onFinish"] = async (values) => {
     setLoadingButton(true);
     try {
@@ -161,7 +126,6 @@ const Settings: React.FC = () => {
     }
     setIsModalOpen(false);
   };
-
   const createOrUpdateFood = async (data: DataType) => {
     try {
       const formData = new FormData();
@@ -193,16 +157,13 @@ const Settings: React.FC = () => {
       setLoading(false);
     }
   };
-
   const onFinishFailed: FormProps["onFinishFailed"] = (errorInfo) => {
     message.error("Failed to submit form!.");
   };
-
   const handleChange = (info: any) => {
     let updatedFileList = [...info.fileList];
     updatedFileList = updatedFileList.slice(-1);
     setFileList(updatedFileList);
-
     if (info.file.status === "done") {
       setImageUrl(info.file.originFileObj);
       message.success(`${info.file.name} file uploaded successfully`);
@@ -210,7 +171,6 @@ const Settings: React.FC = () => {
       message.error(`${info.file.name} file upload failed.`);
     }
   };
-
   const getUrlUpdateUserImg = async (file: File) => {
     const CLOUD_NAME = "dugeyusti";
     const PRESET_NAME = "expert_upload";
@@ -246,7 +206,6 @@ const Settings: React.FC = () => {
       throw error;
     }
   };
-
   return (
     <main
       className={`${theme} flex flex-col items-center justify-betwee h-full min-h-screen`}
@@ -346,5 +305,4 @@ const Settings: React.FC = () => {
     </main>
   );
 };
-
 export default Settings;

@@ -14,7 +14,6 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Footer from "@/components/layout/Footer";
-
 const shops = [
   ShopImage1,
   ShopImage2,
@@ -23,7 +22,6 @@ const shops = [
   ShopImage5,
   ShopImage6,
 ];
-
 export default function Page() {
   const { cart, removeFromCart } = useCart();
   const { theme } = useTheme();

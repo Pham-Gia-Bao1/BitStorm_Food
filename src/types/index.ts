@@ -3,7 +3,6 @@ type PropductProps = {
     productId: string;
   };
 };
-
 interface Product {
   id: number;
   name: string;
@@ -27,7 +26,6 @@ type FieldType = {
   username?: string;
   password?: string;
 };
-
 type DataProductType = {
   name: string;
   price: number;
@@ -41,7 +39,6 @@ interface BoxCardProps {
 interface ProductCardProps {
   params: Product;
   getData: () => void;
-
 }
 interface SearchBarProps {
   setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
@@ -69,7 +66,6 @@ interface HomePageCardSecondLevelProps {
   title: string;
   description: string;
 }
-
 // src/types/index.ts
  interface OrderCardProps {
   id: string | number;
@@ -84,7 +80,6 @@ interface CartItem {
   picture: string;
   price: number | string;
 }
-
 type DataType = {
   name: string;
   price: number;
@@ -101,7 +96,6 @@ type SkeletonsType = {
 type IntroduceCardType = {
   content: string
 }
-
 interface RectProps {
   imageSrc: string;
   title: string;

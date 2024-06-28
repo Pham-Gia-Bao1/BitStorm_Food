@@ -1,6 +1,5 @@
 import { Skeleton } from "@mui/material";
 import React from "react";
-
 export default function SkeletonDetail() {
   return (
     <div className="detail flex gap-4 w-full bg-gray-50 h-full p-4 rounded-lg shadow-md">

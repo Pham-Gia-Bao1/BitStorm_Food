@@ -1,10 +1,7 @@
-// app/auth/register/registerLayout.tsx
 import React from 'react';
-
 interface RegisterLayoutProps {
   children: React.ReactNode;
 }
-
 const RegisterLayout: React.FC<RegisterLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -14,5 +11,4 @@ const RegisterLayout: React.FC<RegisterLayoutProps> = ({ children }) => {
     </div>
   );
 };
-
 export default RegisterLayout;

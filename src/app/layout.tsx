@@ -13,31 +13,20 @@ import MainLogo from "@/components/logo/MainLogo";
 import Header from "@/components/layout/Header";
 import { CartProvider } from "@/components/context/CartContext";
 import { useAuth } from "@/hooks/useAuth";
-import { useRouter } from "next/navigation";
-
 const inter = Inter({ subsets: ["latin"] });
-
 const ThemeProvider = ({ children, ...props }: any) => {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const token = useAuth();
   const { theme } = useTheme();
-  const router = useRouter();
-
-  if (!token) {
-    router.push("/login");
-  }
-
   return (
     <html lang="en">
-      <CartProvider>
-        <body>
+      <body>
+        <CartProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
@@ -67,8 +56,8 @@ export default function RootLayout({
               </div>
             </div>
           </ThemeProvider>
-        </body>
-      </CartProvider>
+        </CartProvider>
+      </body>
     </html>
   );
 }

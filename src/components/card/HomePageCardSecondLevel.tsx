@@ -12,5 +12,4 @@ const HomePageCardSecondLevel: React.FC<HomePageCardSecondLevelProps> = ({ icon,
     </div>
   );
 };
-
 export default HomePageCardSecondLevel;

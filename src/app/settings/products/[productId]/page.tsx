@@ -6,14 +6,12 @@ import Image from "next/image";
 import Loading from "@/components/loading/Loading";
 import { useTheme } from "next-themes";
 import { useCart } from "@/components/context/CartContext";
-
 const ProductDetail: React.FC<PropductProps> = ({ params }) => {
   const { theme } = useTheme();
   const { addToCart } = useCart(); // Use the addToCart function from context
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
   useEffect(() => {
     const productId = parseInt(params.productId);
     if (isNaN(productId)) {
@@ -23,7 +21,6 @@ const ProductDetail: React.FC<PropductProps> = ({ params }) => {
     }
     getData(productId);
   }, [params.productId]);
-
   async function getData(productId: number): Promise<void> {
     const apiUrl = `${API_URL}/foods/${productId}`;
     try {
@@ -36,17 +33,14 @@ const ProductDetail: React.FC<PropductProps> = ({ params }) => {
       console.error("Failed to fetch data:", error);
     }
   }
-
   const handleAddToCart = () => {
     if (product) {
       addToCart(product);
     }
   };
-
   const handleBuy = () => {
     console.log("Bought:", product);
   };
-
   return (
     <main className="flex min-h-screen flex-col bg-white items-center mt-10 justify-between md:container md:mx-auto">
       <div className={`${theme} ml-4 h-50 w-full p-4 rounded-lg`}>
@@ -99,5 +93,4 @@ const ProductDetail: React.FC<PropductProps> = ({ params }) => {
     </main>
   );
 };
-
 export default ProductDetail;

@@ -1,6 +1,5 @@
 // app/auth/login/page.tsx
 import React from "react";
-
 const LoginPage: React.FC = () => {
   return (
     <>
@@ -42,5 +41,4 @@ const LoginPage: React.FC = () => {
     </>
   );
 };
-
 export default LoginPage;

@@ -1,6 +1,5 @@
 import { API_URL } from "@/utils";
 import axios from "axios";
-
 export const fetchFoodsData = async () => {
   const apiUrl = `${API_URL}/foods`;
   try {
@@ -11,7 +10,6 @@ export const fetchFoodsData = async () => {
     throw error; // Rethrow error to handle it in the caller
   }
 };
-
 export const createFood = async (newFood: Product): Promise<Product> => {
   try {
     const response = await axios.post<Product>(`${API_URL}/foods`, newFood);
@@ -21,7 +19,6 @@ export const createFood = async (newFood: Product): Promise<Product> => {
     throw error;
   }
 };
-
 export const updateFood = async (foodId: string, updatedFood: Product): Promise<Product> => {
   try {
     const response = await axios.put<Product>(`${API_URL}/foods/${foodId}`, updatedFood);
@@ -31,7 +28,6 @@ export const updateFood = async (foodId: string, updatedFood: Product): Promise<
     throw error;
   }
 };
-
 export const deleteFood = async (foodId: string | number): Promise<boolean> => {
   try {
     await axios.delete(`${API_URL}/foods/${foodId}`);
@@ -40,9 +36,6 @@ export const deleteFood = async (foodId: string | number): Promise<boolean> => {
     return false;
   }
 };
-
-
-
 export const search = async (searchTerm: string) => {
   try {
     const response = await axios.post(`${API_URL}/foods/search`, {
@@ -54,7 +47,6 @@ export const search = async (searchTerm: string) => {
     throw error;
   }
 };
-
 export const getAllPost = async () => {
   try {
     const response = await axios.get(`${API_URL}/posts`);
@@ -64,7 +56,6 @@ export const getAllPost = async () => {
     throw error;
   }
 }
-
 export const getAllPrice = async (): Promise<number[]> => {
   try {
     const response = await axios.get<number[]>(`${API_URL}/foods/prices`);
@@ -75,7 +66,6 @@ export const getAllPrice = async (): Promise<number[]> => {
     throw error;
   }
 };
-
 export const getAllType = async (): Promise<string[]> => {
   try {
     const response = await axios.get<string[]>(`${API_URL}/foods/types`);
@@ -86,8 +76,6 @@ export const getAllType = async (): Promise<string[]> => {
     throw error;
   }
 };
-
-
 export const filter = async (price: number) => {
   try {
     const response = await axios.get(`${API_URL}/foods/filter/${price}`);
@@ -98,7 +86,6 @@ export const filter = async (price: number) => {
     throw error;
   }
 };
-
 export const getFoodsByType = async (type: string) => {
   try {
     const response = await axios.get(`${API_URL}/foods/types/${type}`)
@@ -107,4 +94,3 @@ export const getFoodsByType = async (type: string) => {
     throw error;
   }
 }
-

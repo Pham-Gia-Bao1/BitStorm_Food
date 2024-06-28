@@ -1,13 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
-
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -15,7 +13,6 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -25,15 +22,12 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
-
 /* globals.css */
-
 /* Default (light) theme styles */
 .light {
   background-color: #ffffff !important;
@@ -43,7 +37,6 @@ body {
   background-color: #151515 !important;
   color: #ffffff !important;
 }
-
 .box-shadow{
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
@@ -63,7 +56,6 @@ body {
   right: -100%; /* Bắt đầu ẩn bên phải */
   transition: right 0.3s ease; /* Hiệu ứng slide qua từ phải sang trái trong 0.3 giây */
 }
-
 .cart-container.visible {
   right: 0; /* Khi hiển thị, slide vào từ bên phải */
   transition: right 0.3s ease; /* Hiệu ứng slide qua từ phải sang trái trong 0.3 giây */

@@ -4,15 +4,12 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { search } from "@/api"; // Make sure this path is correct
-
 interface SearchBarProps {
   setProducts: (products: Product[]) => void;
 }
-
 export const SearchBar: React.FC<SearchBarProps> = ({ setProducts }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [expanded, setExpanded] = useState<boolean>(false);
-
   const handleSearch = async () => {
     try {
       const result = await search(searchTerm);
@@ -21,14 +18,12 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setProducts }) => {
       console.error("Error searching foods:", error);
     }
   };
-
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       event.preventDefault(); // Prevent the default behavior of form submission
       handleSearch();
     }
   };
-
   const handleExpand = () => {
     setExpanded((pre) => searchTerm ? pre : !pre);
     if (!expanded) {
@@ -39,7 +34,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({ setProducts }) => {
       handleSearch();
     }
   };
-
   return (
     <Paper
       component="form"

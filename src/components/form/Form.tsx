@@ -15,12 +15,10 @@ const ProductForm: React.FC<ProductFormProps> = ({
   loading,
 }) => {
   const [allType, setAllType] = useState<string[]>([]);
-
   useEffect(() => {
     fetchTypes();
     return;
   }, []);
-
   const fetchTypes = async () => {
     try {
       const response = await getAllType();
@@ -32,7 +30,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
       console.error("Failed to fetch types", error);
     }
   };
-
   return (
     <Modal
       className="text-center"
@@ -61,7 +58,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="Price"
           name="price"
@@ -69,7 +65,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
         >
           <Input />
         </Form.Item>
-
         <Form.Item
           label="Description"
           name="description"
@@ -82,7 +77,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
         >
           <Input.TextArea />
         </Form.Item>
-
         <Form.Item
           label="Type"
           name="type"
@@ -96,7 +90,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
             ))}
           </Select>
         </Form.Item>
-
         <Form.Item
           label="Upload picture"
           name="upload"
@@ -116,7 +109,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
             )}
           </Upload>
         </Form.Item>
-
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button loading={loading} type="primary" htmlType="submit">
             Submit
@@ -126,5 +118,4 @@ const ProductForm: React.FC<ProductFormProps> = ({
     </Modal>
   );
 };
-
 export default ProductForm;

@@ -30,7 +30,6 @@ const FormSoft: React.FC<FormSoftProps> = ({
       footer={null}
       visible={open}
       onCancel={handleCancel}
-
     >
       <Form onFinish={onFinish} >
         <Form.Item
@@ -54,5 +53,4 @@ const FormSoft: React.FC<FormSoftProps> = ({
     </Modal>
   );
 };
-
 export default FormSoft;

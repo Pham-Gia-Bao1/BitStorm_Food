@@ -1,7 +1,6 @@
 // Footer.tsx
 import { useTheme } from 'next-themes';
 import React from 'react';
-
 const Footer: React.FC = () => {
   const { theme } = useTheme();
   return (
@@ -18,5 +17,4 @@ const Footer: React.FC = () => {
     </footer>
   );
 };
-
 export default Footer;

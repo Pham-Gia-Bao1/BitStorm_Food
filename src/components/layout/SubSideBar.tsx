@@ -3,7 +3,6 @@ import React from "react";
 import Link from "next/link";
 import { List, ListItem, ListItemText } from "@mui/material";
 import { useTheme } from "next-themes";
-
 const SubSidebar = () => {
   const { theme } = useTheme();
   return (
@@ -61,5 +60,4 @@ const SubSidebar = () => {
     </div>
   );
 };
-
 export default SubSidebar;

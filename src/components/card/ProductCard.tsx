@@ -20,13 +20,11 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-
 interface ProductCardProps {
   params: Product;
   getData: () => void;
   openModal: (id: number) => void;
 }
-
 const ProductCard: React.FC<ProductCardProps> = ({
   params,
   getData,
@@ -35,27 +33,22 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const { theme } = useTheme();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const confirm: PopconfirmProps["onConfirm"] = async (e) => {
     console.log(e);
     await deleteFood(params.id);
     getData();
     message.success("Deleted successfully!");
   };
-
   const cancel: PopconfirmProps["onCancel"] = (e) => {
     console.log(e);
     message.error("Click on No");
   };
-
   return (
     <div
       className={`${theme} ${theme === 'dark' ? 'bg-blue-500' : ''} box-shadow-1 p-5 rounded-lg overflow-hidden relative flex flex-col justify-between h-full`}
@@ -81,7 +74,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
             className="w-full h-32 object-cover rounded"
           />
         )}
-
         <h2 className="mt-2 overflow-ellipsis overflow-hidden">
           {params.name}
         </h2>
@@ -130,5 +122,4 @@ const ProductCard: React.FC<ProductCardProps> = ({
     </div>
   );
 };
-
 export default ProductCard;

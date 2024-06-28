@@ -1,12 +1,7 @@
 "use client";
-
-import { getAllPost } from "@/api";
 import TablePost from "@/components/table/Table";
 import React, { useEffect, useState } from "react";
-
 export default function Notifications() {
-  
-
   return (
     <main className="flex flex-col items-center justify-betwee bg-white h-full">
       <div className="flex-1 p-6 bg-gray-800 text-white w-full h-full">

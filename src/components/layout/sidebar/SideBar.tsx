@@ -13,7 +13,6 @@ import {
 import { Tooltip, IconButton } from "@mui/material";
 import Link from "next/link";
 import { useTheme } from "next-themes";
-
 const links = [
   { title: "Store", icon: <Store /> },
   { title: "Home", icon: <Home /> },
@@ -24,7 +23,6 @@ const links = [
   { title: "Settings", icon: <Settings /> },
   { title: "Logout", icon: <ExitToApp /> },
 ];
-
 const SideBar: React.FC = () => {
   const { theme } = useTheme();
   const [selected, setSelected] = useState<string>("");
@@ -47,5 +45,4 @@ const SideBar: React.FC = () => {
     </div>
   );
 };
-
 export default SideBar;

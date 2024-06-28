@@ -36,5 +36,4 @@ const OrderCard: React.FC<OrderCardProps> = ({
     </div>
   );
 };
-
 export default OrderCard;
